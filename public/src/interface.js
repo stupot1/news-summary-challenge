@@ -16,11 +16,13 @@ function cb(data) {
   for (i = 0; i < 10; i++) {
     li = document.createElement("a");
     br = document.createElement("br");
+    br2 = document.createElement("br");
     li.setAttribute('id', i);
     li.setAttribute('href',data.response.results[i].webUrl);
     li.appendChild(document.createTextNode(data.response.results[i].webTitle));
     headlinesList.appendChild(li);
     headlinesList.appendChild(br);
+    headlinesList.appendChild(br2);
   }
 };
 
