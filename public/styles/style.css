@@ -1,28 +1,35 @@
-#headlinesList {
-  position: relative;
-  top: 50px;
-  background-color:transparent;
-  text-align: center;
-  color:#FFF;
-  font-size:28px;
-  font-family:Courier, monospace;
-  height:28px;
-  font-weight:normal;
-  };
-
-h1 {
-  position: relative;
-  top: 50px;
-  background-color:transparent;
-  text-align: center;
-  color:black;
-  font-size:5rem;
-  font-family:Courier, monospace;
-  height:48px;
-  font-weight:bold;
-  };
+body {
+    font-family: Courier, monospace;
+}
 
 .gu-image {
-  width: 250px;
-  height: 150px;
-  }
+    position: absolute;
+    left: -250px;
+    width: 200px;
+    height: 120px;
+}
+
+#headlineTitle {
+    position: relative;
+    top: 50px;
+    background-color: transparent;
+    text-align: center;
+    color: black;
+    font-size: 4rem;
+    font-family: Courier, monospace;
+    height: 28px;
+    font-weight: normal;
+}
+
+#headlinesList {
+    position: relative;
+    left: 300px;
+    background-color: transparent;
+    text-align: center;
+    color: #FFF;
+    font-size: 28px;
+    height: 28px;
+    font-weight: normal;
+}
+
+;
