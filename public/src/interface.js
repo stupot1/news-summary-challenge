@@ -1,8 +1,13 @@
 function onPageLoad() {
 
-    var i, li, li2, br, webUrl, webTitle, storyImg
+    var i, li, br, j
+    var webUrl = []
+    var webTitle = []
+    var storyImg = []
+    var apiUrl = []
     var headlinesList = document.getElementById("headlinesList");
-    var x = 0;
+    var x = 0
+    const numberOfStories = 10
 
     fetch("http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?q=happy")
         .then(response => response.json())
@@ -10,45 +15,46 @@ function onPageLoad() {
 
     function headlinesCallback(inputHeadlines) {
 
-        for (i = 1; i < 3; i++) {
-            webUrl = inputHeadlines.response.results[i].webUrl
-            webTitle = inputHeadlines.response.results[i].webTitle
-            apiUrl = "http" + inputHeadlines.response.results[i].apiUrl.substr(5)
-            li = document.createElement("a");
+        for (i = 0; i < numberOfStories; i++) {
+            webUrl[i] = inputHeadlines.response.results[i].webUrl
+            webTitle[i] = inputHeadlines.response.results[i].webTitle
+            apiUrl[i] = "http" + inputHeadlines.response.results[i].apiUrl.substr(5)
 
-            br = document.createElement("br");
-            br2 = document.createElement("br");
-            li.setAttribute('id', i);
-            li.setAttribute('href', webUrl);
-            console.log((250 + (i * 250))) + "px";
-            li.style.top = (250 + (i * 250)) + "px";
-            console.log(li.style.top)
-            li.appendChild(document.createTextNode(webTitle));
-            headlinesList.appendChild(li);
-
-            fetch("http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=" + apiUrl + "?show-fields=all")
+            fetch("http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=" +  apiUrl[i] + "?show-fields=all")
                 .then(response => response.json())
                 .then(data => storyCallback(data))
-
-            headlinesList.appendChild(br);
-            headlinesList.appendChild(br2);
-
         }
     };
 
     function storyCallback(inputStory) {
-
-        storyImg = inputStory.response.content.fields.thumbnail
-        img = document.createElement("IMG");
-        img.setAttribute('id', "img" + x);
-        img.setAttribute('class', "gu-image");
-        img.style.top = (-x * 100);
-        img.src = storyImg;
-        headlinesList.appendChild(img);
+        storyImg[x] = inputStory.response.content.fields.thumbnail
+        console.log("x" + x)
         x++
-    }
 
+        if (x==numberOfStories){
+
+            for (j = 0; j < numberOfStories; j++) {
+
+                img = document.createElement("IMG");
+                img.setAttribute('id', "img" +j);
+                img.setAttribute('class', "gu-image");
+                img.src = storyImg[j];
+                headlinesList.appendChild(img);
+                
+                li = document.createElement("a");
+                br = document.createElement("br");
+                br2 = document.createElement("br");
+                li.setAttribute('id', j);
+                li.setAttribute('href', webUrl[j]);
+                li.appendChild(document.createTextNode(webTitle[j]));
+                headlinesList.appendChild(li);
+                headlinesList.appendChild(br);
+                headlinesList.appendChild(br2);
+            }
+        }
+    }
 }
+
 
 
 // console.log(data.response.content.fields.main)
